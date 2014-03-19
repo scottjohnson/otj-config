@@ -33,9 +33,9 @@ import org.skife.config.ConfigurationObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nesscomputing.tinyhttp.HttpContentConverter;
-import com.nesscomputing.tinyhttp.HttpFetcher;
-import com.nesscomputing.tinyhttp.ssl.SSLConfig;
+import com.opentable.tinyhttp.HttpContentConverter;
+import com.opentable.tinyhttp.HttpFetcher;
+import com.opentable.tinyhttp.ssl.SSLConfig;
 
 public class HttpConfigStrategy extends AbstractConfigStrategy
 {
