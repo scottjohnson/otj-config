@@ -15,7 +15,6 @@
  */
 package com.nesscomputing.config;
 
-
 import java.io.IOException;
 import java.net.URI;
 

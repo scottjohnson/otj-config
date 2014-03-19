@@ -3,27 +3,27 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.nesscomputing</groupId>
-    <artifactId>ness-oss-parent</artifactId>
-    <version>32</version>
+    <groupId>com.opentable</groupId>
+    <artifactId>opentable-parent</artifactId>
+    <version>1-SNAPSHOT</version>
   </parent>
 
   <scm>
-    <connection>scm:git:git://github.com/NessComputing/components-ness-config.git</connection>
-    <developerConnection>scm:git:git@github.com:NessComputing/components-ness-config.git</developerConnection>
-    <url>http://github.com/NessComputing/components-ness-config</url>
+    <connection>scm:git:git://github.com/opentable/otj-config.git</connection>
+    <developerConnection>scm:git:git@github.com:opentable/otj-config.git</developerConnection>
+    <url>http://github.com/opentable/otj-config</url>
     <tag>HEAD</tag>
   </scm>
 
-  <groupId>com.nesscomputing.components</groupId>
-  <artifactId>ness-config</artifactId>
-  <name>ness-config</name>
-  <version>2.3.2-SNAPSHOT</version>
+  <groupId>com.opentable.components</groupId>
+  <artifactId>otj-config</artifactId>
+  <name>otj-config</name>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <description>Ness Configuration component.</description>
+  <description>OpenTable Configuration component.</description>
 
   <properties>
-    <dep.jetty.version>8.1.3.v20120416</dep.jetty.version>
+    <dep.jetty.version>9.1.3.v20140225</dep.jetty.version>
   </properties>
 
   <dependencies>
@@ -82,7 +82,6 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
-      <version>4.1.4</version>
     </dependency>
 
     <dependency>
@@ -119,7 +118,6 @@
     <dependency>
       <groupId>org.weakref</groupId>
       <artifactId>jmxutils</artifactId>
-      <version>1.12</version>
       <scope>test</scope>
     </dependency>
 
@@ -127,6 +125,7 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <scope>test</scope>
+      <version>1.7.6</version>
     </dependency>
 
     <dependency>

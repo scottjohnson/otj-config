@@ -16,76 +16,79 @@
 package com.nesscomputing.config.util;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.URL;
+import java.nio.channels.ServerSocketChannel;
 import java.security.Principal;
 
 import javax.security.auth.Subject;
+
+import com.google.common.io.Resources;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.security.DefaultIdentityService;
 import org.eclipse.jetty.security.IdentityService;
 import org.eclipse.jetty.security.LoginService;
 import org.eclipse.jetty.security.MappedLoginService.KnownUser;
+import org.eclipse.jetty.security.RoleInfo;
 import org.eclipse.jetty.security.SecurityHandler;
 import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.server.UserIdentity;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
-import org.eclipse.jetty.server.ssl.SslSelectChannelConnector;
 import org.eclipse.jetty.util.security.Credential;
 import org.eclipse.jetty.util.security.Password;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
-import com.google.common.io.Resources;
 import com.nesscomputing.testing.lessio.AllowNetworkListen;
 
 @AllowNetworkListen(ports={0})
 public class LocalHttpService
 {
-    private final Server server = new Server();
+    private final Server server;
     private final Connector connector;
 
     public static LocalHttpService forHandler(final Handler handler)
     {
-        return new LocalHttpService(handler, getHttpConnector());
+        final Server server = new Server();
+        return new LocalHttpService(server, handler, getHttpConnector(server));
     }
 
     public static LocalHttpService forSecureHandler(final Handler handler, final String login, final String password)
     {
-        return new LocalHttpService(getSecuredHandler(handler, login, password), getHttpConnector());
+        final Server server = new Server();
+        return new LocalHttpService(server, getSecuredHandler(handler, login, password), getHttpConnector(server));
     }
 
     public static LocalHttpService forSSLHandler(final Handler handler)
     {
-        return new LocalHttpService(handler, getSSLHttpConnector());
+        final Server server = new Server();
+        return new LocalHttpService(server, handler, getSSLHttpConnector(server));
     }
 
     public static LocalHttpService forSecureSSLHandler(final Handler handler, final String login, final String password)
     {
-        return new LocalHttpService(getSecuredHandler(handler, login, password), getSSLHttpConnector());
+        final Server server = new Server();
+        return new LocalHttpService(server, getSecuredHandler(handler, login, password), getSSLHttpConnector(server));
     }
 
-	public static LocalHttpService forSSLClientSSLServerHandler(final Handler handler,
-		String truststore, String truststorePassword, String keystore, String keystorePassword,
-		String keystoreType) {
-		return new LocalHttpService(handler,
-			getSSLClientCertHttpConnector(truststore, truststorePassword, keystore,
-				keystorePassword, keystoreType));
-	}
-
-    private static Connector getHttpConnector()
+    private static Connector getHttpConnector(Server server)
     {
-        final SelectChannelConnector scc = new SelectChannelConnector();
+        final ServerConnector scc = new ServerConnector(server);
         scc.setPort(0);
         scc.setHost("localhost");
         return scc;
     }
 
-    private static Connector getSSLHttpConnector()
+    private static Connector getSSLHttpConnector(Server server)
     {
         final URL keystoreUrl = Resources.getResource(LocalHttpService.class, "/test-server-keystore.jks");
 
@@ -94,37 +97,19 @@ public class LocalHttpService
         contextFactory.setKeyStorePath(keystoreUrl.toString());
         contextFactory.setKeyStorePassword("changeit");
         contextFactory.setKeyManagerPassword("changeit");
-        final SslSelectChannelConnector scc = new SslSelectChannelConnector(contextFactory);
+
+        final HttpConfiguration config = new HttpConfiguration();
+        config.addCustomizer(new SecureRequestCustomizer());
+
+        final ServerConnector scc = new ServerConnector(
+                server,
+                new SslConnectionFactory(contextFactory, "http/1.1"),
+                new HttpConnectionFactory(config));
         scc.setPort(0);
         scc.setHost("localhost");
 
         return scc;
     }
-
-	private static Connector getSSLClientCertHttpConnector(String truststore,
-		String truststorePassword, String keystore, String keystorePassword, String keystoreType)
-	{
-        final URL keystoreUrl = Resources.getResource(LocalHttpService.class, keystore);
-
-        final SslContextFactory contextFactory = new SslContextFactory();
-        contextFactory.setKeyStorePath(keystoreUrl.toString());
-        contextFactory.setKeyStorePassword(keystorePassword);
-        contextFactory.setKeyManagerPassword(keystorePassword);
-        contextFactory.setKeyStoreType(keystoreType);
-
-        final URL truststoreUrl = Resources.getResource(LocalHttpService.class, truststore);
-        contextFactory.setTrustStore(truststoreUrl.toString());
-        contextFactory.setTrustStorePassword(truststorePassword);
-        contextFactory.setTrustStoreType("JKS");
-
-        contextFactory.setNeedClientAuth(true);
-
-        final SslSelectChannelConnector scc = new SslSelectChannelConnector(contextFactory);
-		scc.setPort(0);
-		scc.setHost("localhost");
-
-		return scc;
-	}
 
     private static Handler getSecuredHandler(final Handler handler, final String login, final String password)
     {
@@ -138,17 +123,9 @@ public class LocalHttpService
         return securityHandler;
     }
 
-    /**
-     * @deprecated Use {@link LocalHttpService#forHandler(Handler)}.
-     */
-    @Deprecated
-    public LocalHttpService(final Handler handler)
+    private LocalHttpService(final Server server, final Handler handler, final Connector connector)
     {
-        this(handler, getHttpConnector());
-    }
-
-    private LocalHttpService(final Handler handler, final Connector connector)
-    {
+        this.server = server;
         this.connector = connector;
         server.setConnectors(new Connector[] { connector });
         server.setHandler(handler);
@@ -180,12 +157,12 @@ public class LocalHttpService
 
     public String getHost()
     {
-        return connector.getHost();
+        return "localhost";
     }
 
-    public int getPort()
+    public int getPort() throws IOException
     {
-        return connector.getLocalPort();
+        return ((InetSocketAddress)((ServerSocketChannel) connector.getTransport()).getLocalAddress()).getPort();
     }
 
     private static class DummySecurityHandler extends SecurityHandler
@@ -198,13 +175,13 @@ public class LocalHttpService
         }
 
         @Override
-        protected Object prepareConstraintInfo(String pathInContext, Request request)
+        protected RoleInfo prepareConstraintInfo(String pathInContext, Request request)
         {
             return null;
         }
 
         @Override
-        protected boolean checkUserDataPermissions(String pathInContext, Request request, Response response, Object constraintInfo) throws IOException
+        protected boolean checkUserDataPermissions(String pathInContext, Request request, Response response, RoleInfo constraintInfo) throws IOException
         {
             return true;
         }
