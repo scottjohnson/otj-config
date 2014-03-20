@@ -15,15 +15,12 @@
  */
 package com.opentable.config;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.opentable.config.ConfigModule;
-import com.opentable.config.ConfigProvider;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 public class ConfigProviderTest {
 

@@ -23,7 +23,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.opentable.config.Config;
 import com.opentable.config.util.PropertiesSaver;
 
 public class SystemPropertiesTest

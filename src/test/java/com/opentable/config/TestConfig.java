@@ -18,8 +18,6 @@ package com.opentable.config;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.opentable.config.Config;
-
 public class TestConfig
 {
     @Test

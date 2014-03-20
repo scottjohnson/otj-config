@@ -20,8 +20,6 @@ import java.util.Collections;
 import org.apache.commons.configuration.MapConfiguration;
 import org.junit.Test;
 
-import com.opentable.config.Config;
-
 public class EmptyConfigOverrideTest
 {
     @Test

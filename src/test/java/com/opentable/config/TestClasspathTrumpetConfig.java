@@ -19,8 +19,6 @@ import java.net.URI;
 
 import org.junit.Before;
 
-import com.opentable.config.Config;
-
 public class TestClasspathTrumpetConfig extends AbstractTestConfig
 {
     @Before

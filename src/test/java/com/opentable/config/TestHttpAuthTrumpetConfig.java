@@ -25,11 +25,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.kitei.testing.lessio.AllowNetworkAccess;
 
-import com.opentable.config.Config;
 import com.opentable.config.util.LocalHttpService;
-
-import com.nesscomputing.testing.lessio.AllowNetworkAccess;
 
 @AllowNetworkAccess(endpoints={"127.0.0.1:*"})
 public class TestHttpAuthTrumpetConfig

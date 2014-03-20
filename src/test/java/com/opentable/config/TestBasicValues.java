@@ -17,8 +17,6 @@ package com.opentable.config;
 
 import org.junit.Before;
 
-import com.opentable.config.Config;
-
 public class TestBasicValues extends AbstractTestConfig
 {
     @Before

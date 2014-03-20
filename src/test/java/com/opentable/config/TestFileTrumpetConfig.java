@@ -19,18 +19,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-
-import com.opentable.config.Config;
-
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 import com.google.common.io.Resources;
 
-import com.nesscomputing.testing.lessio.AllowLocalFileAccess;
+import org.apache.commons.io.FileUtils;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.kitei.testing.lessio.AllowLocalFileAccess;
 
 @AllowLocalFileAccess(paths={"*/test-config/*","%TMP_DIR%"})
 public class TestFileTrumpetConfig extends AbstractTestConfig

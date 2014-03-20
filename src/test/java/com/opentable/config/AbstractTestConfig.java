@@ -24,8 +24,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.opentable.config.Config;
-
 public abstract class AbstractTestConfig
 {
     protected Config cfg = null;
