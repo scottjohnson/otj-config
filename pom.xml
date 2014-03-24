@@ -27,6 +27,11 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <scope>runtime</scope>
+    </dependency>
 
     <dependency>
       <groupId>com.opentable.components</groupId>
@@ -42,6 +47,12 @@
     <dependency>
       <groupId>commons-configuration</groupId>
       <artifactId>commons-configuration</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

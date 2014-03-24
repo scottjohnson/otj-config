@@ -47,7 +47,7 @@ import com.opentable.config.util.ImmutableConfiguration;
  * configurations being further right. A property defined in a more local configuration overrides a more global
  * definition.
  *
- * Configuration is loaded either as "<name>.properties" files or from "<name>/config.properties". All configuration
+ * Configuration is loaded either as {@code <name>.properties} files or from {@code <name>/config.properties}. All configuration
  * is loaded relative to a "configuration location".
  *
  * A configuration location can be given using the explicit constructor or through environment variables (ness.config and ness.config.location).
