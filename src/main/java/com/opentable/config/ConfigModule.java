@@ -43,7 +43,7 @@ public class ConfigModule extends AbstractModule
     }
 
     /**
-     * Create a new config module that uses the system properties 'ness.config.location' and 'ness.config' to determine what configurations to load.
+     * Create a new config module that uses the system properties 'ot.config.location' and 'ot.config' to determine what configurations to load.
      */
     public ConfigModule()
     {

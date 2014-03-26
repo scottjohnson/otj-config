@@ -50,15 +50,15 @@ import com.opentable.config.util.ImmutableConfiguration;
  * Configuration is loaded either as {@code <name>.properties} files or from {@code <name>/config.properties}. All configuration
  * is loaded relative to a "configuration location".
  *
- * A configuration location can be given using the explicit constructor or through environment variables (ness.config and ness.config.location).
+ * A configuration location can be given using the explicit constructor or through environment variables (ot.config and ot.config.location).
  */
 public final class Config
 {
     private static final Logger LOG = LoggerFactory.getLogger(Config.class);
 
     /** Java system property for setting the configuration. */
-    public static final String CONFIG_PROPERTY_NAME = "ness.config";
-    public static final String CONFIG_LOCATION_PROPERTY_NAME = "ness.config.location";
+    public static final String CONFIG_PROPERTY_NAME = "ot.config";
+    public static final String CONFIG_LOCATION_PROPERTY_NAME = "ot.config.location";
 
     private static final Object NULL_OBJECT = new Object();
     private final ConcurrentMap<Object, ConfigurationObjectFactory> objectFactories = Maps.newConcurrentMap();
@@ -132,13 +132,13 @@ public final class Config
      * Loads the configuration. The no-args method uses system properties to determine which configurations
      * to load.
      *
-     * -Dness.config=x/y/z defines a hierarchy of configurations from general
+     * -Dot.config=x/y/z defines a hierarchy of configurations from general
      * to detail.
      *
-     * The ness.config.location variable must be set.
-     * If the ness.config variable is unset, the default value "default" is used.
+     * The ot.config.location variable must be set.
+     * If the ot.config variable is unset, the default value "default" is used.
      *
-     * @throws IllegalStateException If the ness.config.location variable is not set.
+     * @throws IllegalStateException If the ot.config.location variable is not set.
      */
     public static Config getConfig()
     {

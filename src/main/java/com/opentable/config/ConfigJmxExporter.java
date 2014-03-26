@@ -86,7 +86,7 @@ class ConfigJmxExporter
 
     private void exportConfig() throws JMException
     {
-        server.registerMBean(new ConfigDynamicMBean("com.nesscomputing.config.Config", config), new ObjectName(ROOT + ":config=ROOT"));
+        server.registerMBean(new ConfigDynamicMBean("com.opentable.config.Config", config), new ObjectName(ROOT + ":config=ROOT"));
     }
 
     synchronized void export(Class<?> realClass, Object configBean)
