@@ -85,7 +85,7 @@ class ConfigFactory
             try {
                 final AbstractConfiguration subConfig = configStrategy.load(configFileName, configFilePath);
                 if (subConfig == null) {
-                    LOG.debug("Configuration '%s' does not exist, skipping", configFileName);
+                    throw new IllegalStateException(String.format("Configuration '%s' does not exist!", configFileName));
                 }
                 else {
                     cc.addConfiguration(subConfig, configFileName);
@@ -97,7 +97,8 @@ class ConfigFactory
         }
 
         if (!loadedConfig && configNames.length > 0) {
-            LOG.warn("Config name '%s' was given but no config file could be found, this looks fishy!", configName);
+            throw new IllegalStateException(String.format(
+                "Config name '%s' was given but no config file could be found, this looks fishy!", configName));
         }
 
         return cc;
