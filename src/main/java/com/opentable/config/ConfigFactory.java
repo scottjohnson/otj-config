@@ -51,30 +51,10 @@ class ConfigFactory
 
     static {
         STRATEGY_PROVIDERS = ImmutableMap.of(
-            "classpath", new ConfigStrategyProvider() {
-                @Override
-                public ConfigStrategy getStrategy(final URI configLocation) {
-                    return new ClasspathConfigStrategy(configLocation);
-                }
-            },
-            "file", new ConfigStrategyProvider() {
-                @Override
-                public ConfigStrategy getStrategy(final URI configLocation) {
-                    return new FileConfigStrategy(configLocation);
-                }
-            },
-            "http", new ConfigStrategyProvider() {
-                @Override
-                public ConfigStrategy getStrategy(final URI configLocation) {
-                    return new HttpConfigStrategy(configLocation);
-                }
-            },
-            "https", new ConfigStrategyProvider() {
-                @Override
-                public ConfigStrategy getStrategy(final URI configLocation) {
-                    return new HttpConfigStrategy(configLocation);
-                }
-            }
+            "classpath", ClasspathConfigStrategy::new,
+            "file", FileConfigStrategy::new,
+            "http", HttpConfigStrategy::new,
+            "https", HttpConfigStrategy::new
         );
     }
 
