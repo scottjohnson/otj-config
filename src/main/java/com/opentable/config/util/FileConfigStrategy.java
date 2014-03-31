@@ -53,7 +53,7 @@ public class FileConfigStrategy extends AbstractConfigStrategy
 
         for (final File propertyFile : propertyFiles) {
             if (propertyFile.exists() && propertyFile.isFile() && propertyFile.canRead()) {
-                LOG.trace("Trying to load '%s'...", propertyFile);
+                LOG.trace("Trying to load '{}'...", propertyFile);
                 try {
                     final AbstractConfiguration config = new PropertiesConfiguration(propertyFile);
                     LOG.trace("... succeeded");
@@ -62,6 +62,8 @@ public class FileConfigStrategy extends AbstractConfigStrategy
                 catch (ConfigurationException ce) {
                     LOG.trace("... failed", ce);
                 }
+            } else {
+                LOG.debug("'{}' does not exist", propertyFile);
             }
         }
         return null;
