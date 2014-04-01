@@ -76,6 +76,7 @@ class ConfigFactory
 
         // All properties can be overridden by the System properties.
         cc.addConfiguration(new SystemConfiguration(), "systemProperties");
+        LOG.info("Configuration source: SYSTEM");
 
         boolean loadedConfig = false;
         for (int i = 0; i < configNames.length; i++) {
@@ -89,6 +90,7 @@ class ConfigFactory
                 }
                 else {
                     cc.addConfiguration(subConfig, configFileName);
+                    LOG.info("Configuration source: {}", configFileName);
                     loadedConfig = true;
                 }
             } catch (ConfigurationException ce) {

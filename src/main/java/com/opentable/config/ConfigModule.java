@@ -17,9 +17,13 @@ package com.opentable.config;
 
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Scopes;
 import com.google.inject.util.Providers;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Binding configuration to Guice. This is a pretty simple module right now but
@@ -30,6 +34,7 @@ import com.google.inject.util.Providers;
  */
 public class ConfigModule extends AbstractModule
 {
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigModule.class);
     private final Provider<Config> configProvider;
 
     public static ConfigModule forTesting(final String ... keyValuePairs)
@@ -82,5 +87,15 @@ public class ConfigModule extends AbstractModule
     {
         bind(Config.class).toProvider(configProvider).in(Scopes.SINGLETON);
         bind(ConfigJmxExporter.class).asEagerSingleton();
+        bind(ConfigDebugger.class).asEagerSingleton();
+    }
+
+    static class ConfigDebugger
+    {
+        @Inject
+        ConfigDebugger(Config config)
+        {
+            LOG.debug("Built configuration: {}", config);
+        }
     }
 }
