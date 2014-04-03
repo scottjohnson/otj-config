@@ -15,38 +15,40 @@ The `otj-config` component ties together a few configuration libraries.
 Code Example
 ------------
 
-    public interface DemoConfig
+```java
+public interface DemoConfig
+{
+    @Config("ot.demo.greeting")
+    @Default("Hello, world!")
+    String getGreeting();
+}
+
+public class DemoConfigModule extends AbstractModule
+{
+    @Override
+    public void configure()
     {
-        @Config("ot.demo.greeting")
-        @Default("Hello, world!")
-        String getGreeting();
+        // Bind a synthesized instance of DemoConfig
+        ConfigBinder.of(binder()).bind(DemoConfig.class);
+    }
+}
+
+public class DemoConfigUser
+{
+    private final DemoConfig config;
+
+    @Inject
+    DemoConfigUser(DemoConfig config)
+    {
+        this.config = config;
     }
 
-    public class DemoConfigModule extends AbstractModule
+    public void getGreeting()
     {
-        @Override
-        public void configure()
-        {
-            // Bind a synthesized instance of DemoConfig
-            ConfigBinder.of(binder()).bind(DemoConfig.class);
-        }
+        return config.getGreeting();
     }
-
-    public class DemoConfigUser
-    {
-        private final DemoConfig config;
-
-        @Inject
-        DemoConfigUser(DemoConfig config)
-        {
-            this.config = config;
-        }
-
-        public void getGreeting()
-        {
-            return config.getGreeting();
-        }
-    }
+}
+```
 
 Component Level
 ---------------
