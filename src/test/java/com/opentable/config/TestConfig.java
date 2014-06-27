@@ -15,6 +15,8 @@
  */
 package com.opentable.config;
 
+import java.util.Properties;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,5 +28,16 @@ public class TestConfig
         final Config emptyConfig = Config.getEmptyConfig();
         Assert.assertNotNull(emptyConfig);
         Assert.assertFalse(emptyConfig.getConfiguration().getKeys().hasNext());
+    }
+
+    @Test
+    public void testFromProperties()
+    {
+        final Properties properties = new Properties();
+        properties.setProperty("zombie.food", "brains");
+
+        final Config propsConfig = Config.getFixedConfig(properties);
+
+        Assert.assertEquals("brains", propsConfig.getConfiguration().getString("zombie.food"));
     }
 }

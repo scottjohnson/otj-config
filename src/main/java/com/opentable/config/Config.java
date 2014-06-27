@@ -19,6 +19,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.annotation.Nonnull;
@@ -28,7 +29,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.CombinedConfiguration;
 import org.apache.commons.configuration.Configuration;
@@ -92,6 +92,16 @@ public final class Config
     public static Config getFixedConfig(@Nonnull Map<String, String> config)
     {
         return getFixedConfig(new MapConfiguration(config));
+    }
+
+    /**
+     * Creates a fixed configuration for the supplied Properties.
+     *
+     * Config objects created from this method will not accept overrides from system properties.
+     */
+    public static Config getFixedConfig(final Properties properties)
+    {
+        return getFixedConfig(new MapConfiguration(properties));
     }
 
     /**
@@ -163,7 +173,6 @@ public final class Config
     /**
      * Create a new configuration object from an existing object using overrides. If no overrides are passed in, the same object is returned.
      *
-     * the
      */
     public static Config getOverriddenConfig(@Nonnull final Config config, @Nullable final AbstractConfiguration ... overrideConfigurations)
     {
