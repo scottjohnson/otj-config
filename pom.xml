@@ -12,13 +12,13 @@
     <connection>scm:git:git://github.com/opentable/otj-config.git</connection>
     <developerConnection>scm:git:git@github.com:opentable/otj-config.git</developerConnection>
     <url>http://github.com/opentable/otj-config</url>
-    <tag>HEAD</tag>
+    <tag>otj-config-1.0.1</tag>
   </scm>
 
   <groupId>com.opentable.components</groupId>
   <artifactId>otj-config</artifactId>
   <name>otj-config</name>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <description>OpenTable Configuration component.</description>
 
