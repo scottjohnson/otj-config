@@ -18,7 +18,7 @@
   <groupId>com.opentable.components</groupId>
   <artifactId>otj-config</artifactId>
   <name>otj-config</name>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>OpenTable Configuration component.</description>
 

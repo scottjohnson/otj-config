@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 
 import org.apache.commons.configuration.AbstractConfiguration;
@@ -59,15 +60,53 @@ class ConfigFactory
     }
 
     private final String configName;
+    private final URI configLocation;
     private final ConfigStrategy configStrategy;
 
     ConfigFactory(@Nonnull final URI configLocation, @Nullable final String configName)
     {
+        this.configLocation = configLocation;
         this.configName = Objects.firstNonNull(configName, "default");
         this.configStrategy = selectConfigStrategy(configLocation);
     }
 
     CombinedConfiguration load()
+    {
+        LOG.info("Begin loading configuration '{}' from '{}'", configName, configLocation);
+        try {
+            if (configName.contains(",")) {
+                return loadOTStrategy();
+            } else {
+                return loadNessStrategy();
+            }
+        } catch (ConfigurationException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+
+    private CombinedConfiguration loadOTStrategy() throws ConfigurationException
+    {
+        final String [] configPaths = StringUtils.stripAll(StringUtils.split(configName, ","));
+        final CombinedConfiguration cc = new CombinedConfiguration(new OverrideCombiner());
+
+        // All properties can be overridden by the System properties.
+        cc.addConfiguration(new SystemConfiguration(), "systemProperties");
+        LOG.info("Configuration source: SYSTEM");
+
+        for (int i = configPaths.length-1; i >= 0; i--) {
+            final String configPath = configPaths[i];
+            final AbstractConfiguration subConfig = configStrategy.load(configPath, configPath);
+            if (subConfig == null) {
+                throw new IllegalStateException(String.format("Configuration '%s' does not exist!", configPath));
+            }
+            cc.addConfiguration(subConfig, configPath);
+            LOG.info("New-style configuration source: {}", configPath);
+        }
+
+        return cc;
+    }
+
+    private CombinedConfiguration loadNessStrategy()
     {
         // Allow foo/bar/baz and foo:bar:baz
         final String [] configNames = StringUtils.stripAll(StringUtils.split(configName, "/:"));
