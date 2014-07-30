@@ -29,12 +29,14 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.CombinedConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.MapConfiguration;
 import org.apache.commons.configuration.SystemConfiguration;
 import org.apache.commons.configuration.tree.OverrideCombiner;
+import org.apache.commons.lang3.StringUtils;
 import org.skife.config.CommonsConfigSource;
 import org.skife.config.ConfigurationObjectFactory;
 import org.slf4j.Logger;
@@ -153,7 +155,7 @@ public final class Config
     public static Config getConfig()
     {
         final Configuration systemConfig = new SystemConfiguration();
-        final String configName = systemConfig.getString(CONFIG_PROPERTY_NAME);
+        final String configName = StringUtils.join(systemConfig.getList(CONFIG_PROPERTY_NAME), ',');
         final String configLocation = systemConfig.getString(CONFIG_LOCATION_PROPERTY_NAME);
         Preconditions.checkState(configLocation != null, "Config location must be set!");
         final ConfigFactory configFactory = new ConfigFactory(URI.create(configLocation), configName);
