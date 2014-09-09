@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.opentable</groupId>
-    <artifactId>otj-parent</artifactId>
+    <artifactId>otj-parent-oss</artifactId>
     <version>20-SNAPSHOT</version>
   </parent>
 
@@ -107,6 +107,7 @@
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
       <scope>test</scope>
+      <version>3.2</version>
     </dependency>
 
     <dependency>
