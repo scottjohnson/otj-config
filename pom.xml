@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.opentable</groupId>
     <artifactId>otj-parent</artifactId>
-    <version>13</version>
+    <version>20-SNAPSHOT</version>
   </parent>
 
   <scm>
@@ -18,7 +18,7 @@
   <groupId>com.opentable.components</groupId>
   <artifactId>otj-config</artifactId>
   <name>otj-config</name>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>OpenTable Configuration component.</description>
 
@@ -36,7 +36,7 @@
     <dependency>
       <groupId>com.opentable.components</groupId>
       <artifactId>otj-tinyhttp</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -69,10 +69,10 @@
       <groupId>org.skife.config</groupId>
       <artifactId>config-magic</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
+      <artifactId>annotations</artifactId>
     </dependency>
 
     <dependency>

@@ -26,9 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.kitei.testing.lessio.AllowLocalFileAccess;
 
-@AllowLocalFileAccess(paths={"*/test-config/*","%TMP_DIR%"})
 public class TestFileTrumpetConfig extends AbstractTestConfig
 {
     File dir = null;

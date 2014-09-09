@@ -47,9 +47,7 @@ import org.eclipse.jetty.server.UserIdentity;
 import org.eclipse.jetty.util.security.Credential;
 import org.eclipse.jetty.util.security.Password;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.kitei.testing.lessio.AllowNetworkListen;
 
-@AllowNetworkListen(ports={0})
 public class LocalHttpService
 {
     private final Server server;

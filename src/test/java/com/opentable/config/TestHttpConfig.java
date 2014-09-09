@@ -22,11 +22,9 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
 import org.junit.After;
 import org.junit.Before;
-import org.kitei.testing.lessio.AllowNetworkAccess;
 
 import com.opentable.config.util.LocalHttpService;
 
-@AllowNetworkAccess(endpoints={"127.0.0.1:*"})
 public class TestHttpConfig extends AbstractTestConfig
 {
     private LocalHttpService localHttpService = null;

@@ -15,7 +15,6 @@
  */
 package com.opentable.config;
 
-
 import java.io.IOException;
 import java.net.URI;
 
@@ -26,12 +25,10 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.kitei.testing.lessio.AllowNetworkAccess;
 
 import com.opentable.config.util.LocalHttpService;
 import com.opentable.config.util.PropertiesSaver;
 
-@AllowNetworkAccess(endpoints={"127.0.0.1:*"})
 public class TestHttpsConfig extends AbstractTestConfig
 {
     private LocalHttpService localHttpService = null;

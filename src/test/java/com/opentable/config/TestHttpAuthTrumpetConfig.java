@@ -15,7 +15,6 @@
  */
 package com.opentable.config;
 
-
 import java.io.IOException;
 import java.net.URI;
 
@@ -25,11 +24,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.kitei.testing.lessio.AllowNetworkAccess;
 
 import com.opentable.config.util.LocalHttpService;
 
-@AllowNetworkAccess(endpoints={"127.0.0.1:*"})
 public class TestHttpAuthTrumpetConfig
 {
     public static final String LOGIN_USER = "demo";
