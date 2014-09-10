@@ -18,20 +18,20 @@
   <parent>
     <groupId>com.opentable</groupId>
     <artifactId>otj-parent-oss</artifactId>
-    <version>20.1</version>
+    <version>21-SNAPSHOT</version>
   </parent>
 
   <scm>
     <connection>scm:git:git://github.com/opentable/otj-config.git</connection>
     <developerConnection>scm:git:git@github.com:opentable/otj-config.git</developerConnection>
     <url>http://github.com/opentable/otj-config</url>
-    <tag>otj-config-1.2.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <groupId>com.opentable.components</groupId>
   <artifactId>otj-config</artifactId>
   <name>otj-config</name>
-  <version>1.2.0</version>
+  <version>1.2.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>OpenTable Configuration component.</description>
 
