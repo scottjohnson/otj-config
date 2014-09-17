@@ -14,9 +14,10 @@
 package com.opentable.config;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
-import com.google.common.io.ByteSource;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 
@@ -46,11 +47,11 @@ public class TestFileTrumpetConfig extends AbstractTestConfig
         dir = Files.createTempDir();
 
         for(String fileName : fileNames) {
-            final ByteSource input = Resources.asByteSource(Resources.getResource(Config.class, fileName));
-            Assert.assertNotNull(input.openStream());
             final File targetFile = new File(dir, fileName);
             mkdirs(targetFile.getParentFile());
-            Files.copy(input, targetFile);
+            try (OutputStream to = new FileOutputStream(targetFile)) {
+                Resources.copy(Resources.getResource(Config.class, fileName), to);
+            }
         }
 
         cfg = Config.getConfig(new File(dir, "/test-config/basic").toURI(), "values");
