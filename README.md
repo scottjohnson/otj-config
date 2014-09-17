@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/opentable/otj-config.svg)](https://travis-ci.org/opentable/otj-config)
+
 OpenTable Configuration Component
 =================================
 
