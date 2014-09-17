@@ -19,7 +19,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 
@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import com.opentable.config.util.ClasspathConfigStrategy;
 import com.opentable.config.util.ConfigStrategy;
 import com.opentable.config.util.FileConfigStrategy;
-import com.opentable.config.util.HttpConfigStrategy;
 
 class ConfigFactory
 {
@@ -51,9 +50,7 @@ class ConfigFactory
     static {
         STRATEGY_PROVIDERS = ImmutableMap.of(
             "classpath", ClasspathConfigStrategy::new,
-            "file", FileConfigStrategy::new,
-            "http", HttpConfigStrategy::new,
-            "https", HttpConfigStrategy::new
+            "file", FileConfigStrategy::new
         );
     }
 
@@ -64,7 +61,7 @@ class ConfigFactory
     ConfigFactory(@Nonnull final URI configLocation, @Nullable final String configName)
     {
         this.configLocation = configLocation;
-        this.configName = Objects.firstNonNull(configName, "default");
+        this.configName = MoreObjects.firstNonNull(configName, "default");
         this.configStrategy = selectConfigStrategy(configLocation);
     }
 
