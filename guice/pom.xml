@@ -18,7 +18,7 @@
   <parent>
     <groupId>com.opentable.components</groupId>
     <artifactId>otj-config-parent</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>otj-config-guice</artifactId>
