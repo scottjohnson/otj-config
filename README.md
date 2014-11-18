@@ -9,7 +9,12 @@ Component Charter
 
 The `otj-config` component ties together a few configuration libraries.
 
-[commons-configuration](http://commons.apache.org/proper/commons-configuration/) is used to load configuration files from files, HTTP, or the classpath.
+[commons-configuration](http://commons.apache.org/proper/commons-configuration/) is used to load configuration files from files or the classpath.
+
+Supported URI schemes:
+* file:///path/to/file
+* classpath:/path/in/classpath
+* empty:empty
 
 [config-magic](https://github.com/brianm/config-magic) takes the final configuration built from `commons-configuration` and allows easy mapping on to Java objects.
 
