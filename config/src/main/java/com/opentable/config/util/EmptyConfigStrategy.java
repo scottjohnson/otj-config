@@ -19,6 +19,9 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.BaseConfiguration;
 import org.apache.commons.configuration.ConfigurationException;
 
+/**
+ * Provide an empty configuration with URI {@code empty:empty}.
+ */
 public class EmptyConfigStrategy implements ConfigStrategy {
 
     private final URI location;
