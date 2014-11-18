@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import com.opentable.config.util.ClasspathConfigStrategy;
 import com.opentable.config.util.ConfigStrategy;
+import com.opentable.config.util.EmptyConfigStrategy;
 import com.opentable.config.util.FileConfigStrategy;
 
 class ConfigFactory
@@ -50,7 +51,8 @@ class ConfigFactory
     static {
         STRATEGY_PROVIDERS = ImmutableMap.of(
             "classpath", ClasspathConfigStrategy::new,
-            "file", FileConfigStrategy::new
+            "file", FileConfigStrategy::new,
+            "empty", EmptyConfigStrategy::new
         );
     }
 
