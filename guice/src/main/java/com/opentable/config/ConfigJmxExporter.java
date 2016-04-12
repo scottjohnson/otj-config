@@ -20,11 +20,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.annotation.concurrent.GuardedBy;
+import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.JMException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 
 import com.google.common.base.Preconditions;
@@ -114,13 +116,11 @@ class ConfigJmxExporter implements Closeable
             return; // Already exported
         }
 
-        try
-        {
+        try {
             server.registerMBean(new ConfigMagicDynamicMBean(realClass.getName(), configBean),
                     objectName);
-        } catch (Exception e)
-        {
-            LOG.error("Unable to export config bean " + configBean.getClass().getName(), e);
+        } catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException e) {
+            throw new RuntimeException("Unable to export bean for " + realClass, e);
         }
     }
 
