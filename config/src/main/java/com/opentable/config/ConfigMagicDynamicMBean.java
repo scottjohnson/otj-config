@@ -15,10 +15,10 @@ package com.opentable.config;
 
 import java.beans.PropertyDescriptor;
 import java.util.Map;
+import java.util.Objects;
 
 import com.google.common.collect.Maps;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.skife.config.cglib.core.ReflectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ class ConfigMagicDynamicMBean extends AbstractDynamicMBean
 
             try
             {
-                result.put(prop.getName(), ObjectUtils.toString(prop.getReadMethod().invoke(configBean), null));
+                result.put(prop.getName(), Objects.toString(prop.getReadMethod().invoke(configBean), null));
             } catch (Exception e)
             {
                 LOG.error(String.format("For class %s, unable to find config property %s", configBean.getClass(), prop), e);
