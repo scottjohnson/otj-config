@@ -58,7 +58,7 @@ public class FileConfigStrategy extends AbstractConfigStrategy
                     return config;
                 }
                 catch (ConfigurationException ce) {
-                    LOG.trace("... failed", ce);
+                    LOG.error("... failed", ce);
                 }
             } else {
                 LOG.debug("'{}' does not exist", propertyFile);
